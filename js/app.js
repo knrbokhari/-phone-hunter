@@ -2,6 +2,7 @@
 const spinner = (displayStyle) => {
   document.getElementById("spinner").style.display = displayStyle;
 };
+// display Toggle
 const ToggleDisplayResult = (displayStyle) => {
   document.getElementById("result").style.display = displayStyle;
 };
@@ -15,30 +16,42 @@ const phoneSearch = async () => {
   ToggleDisplayResult("none");
   // API
   const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
-  console.log(url);
+  // console.log(url);
   const res = await fetch(url);
   const data = await res.json();
-  displayResult(data.data);
+  displayResult(data.data, searchText);
   searchInput.value = "";
 };
 // display search result
-const displayResult = (data) => {
+const displayResult = (data, searchText) => {
   const result = document.getElementById("result");
   result.innerHTML = "";
-  data.map((phone) => {
-    // console.log(phone);
+
+  // console.log(data);
+
+  if (data.length === 0) {
     const div = document.createElement("div");
-    div.classList.add("col-md-4", "mb-3");
     div.innerHTML = `
-        <img src="${phone.image}" class="mx-auto d-block w-75">
-        <div class="card-body text-center">
-            <h5 class="card-title fs-4">Name: ${phone.phone_name}</h5>
-            <p class="card-text fs-5">Brand: ${phone.brand}</p>
-            <a href="#main" onclick="phoneDetails('${phone.slug}')" class="btn btn-primary">Details</a>
-        </div>
+    <h2>${searchText} Not Found..</h2>
     `;
     result.appendChild(div);
-  });
+  } else {
+    data.map((phone) => {
+      // console.log(phone);
+      const div = document.createElement("div");
+      div.classList.add("col-md-4", "mb-3");
+      div.innerHTML = `
+          <img src="${phone.image}" class="mx-auto d-block w-75">
+          <div class="card-body text-center">
+              <h5 class="card-title fs-4">Name: ${phone.phone_name}</h5>
+              <p class="card-text fs-5">Brand: ${phone.brand}</p>
+              <a href="#main" onclick="phoneDetails('${phone.slug}')" class="btn btn-primary">Details</a>
+          </div>
+      `;
+      result.appendChild(div);
+    });
+  }
+
   // spinner & Toggle
   spinner("none");
   ToggleDisplayResult("flex");
