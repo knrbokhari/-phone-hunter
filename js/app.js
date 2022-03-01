@@ -36,7 +36,7 @@ const displayResult = (data, searchText) => {
   } else {
     data.slice(0, 20).map((phone) => {
       const div = document.createElement("div");
-      div.classList.add("col-md-4", "mb-3");
+      div.classList.add("col-md-4", "mb-4");
       div.innerHTML = `
           <img src="${phone.image}" class="mx-auto d-block w-75">
           <div class="card-body text-center">
@@ -67,10 +67,10 @@ const displayDetails = (data) => {
   const details = document.getElementById("details");
   details.innerHTML = "";
   const div = document.createElement("div");
-  div.classList.add("row", "align-items-center");
+  div.classList.add("row", "align-items-center", "mb-4", "bg-light", "py-4");
   div.innerHTML = `
     <div class="col-md-4">
-        <img src="${data.image}" class="mx-auto d-block w-75">
+        <img src="${data.image}" class="mx-auto d-block w-75 mb-4 mb-md-0">
     </div>
     <div class="card-body col-md-8">
         <h5 class="card-title fs-4">Name: ${data.name}</h5>
