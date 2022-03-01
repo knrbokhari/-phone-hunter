@@ -10,13 +10,12 @@ const ToggleDisplayResult = (displayStyle) => {
 const phoneSearch = async () => {
   // get value from input field
   const searchInput = document.getElementById("search");
-  const searchText = searchInput.value;
+  const searchText = searchInput.value.toLowerCase();
   // spinner & Toggle
   spinner("block");
   ToggleDisplayResult("none");
   // API
   const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
-  // console.log(url);
   const res = await fetch(url);
   const data = await res.json();
   displayResult(data.data, searchText);
@@ -26,18 +25,16 @@ const phoneSearch = async () => {
 const displayResult = (data, searchText) => {
   const result = document.getElementById("result");
   result.innerHTML = "";
-
-  // console.log(data);
-
+  const details = document.getElementById("details");
+  details.innerHTML = "";
   if (data.length === 0) {
     const div = document.createElement("div");
     div.innerHTML = `
-    <h2>${searchText} Not Found..</h2>
+    <h2 class="text-center">${searchText} Not Found...</h2>
     `;
     result.appendChild(div);
   } else {
-    data.map((phone) => {
-      // console.log(phone);
+    data.slice(0, 20).map((phone) => {
       const div = document.createElement("div");
       div.classList.add("col-md-4", "mb-3");
       div.innerHTML = `
@@ -45,7 +42,7 @@ const displayResult = (data, searchText) => {
           <div class="card-body text-center">
               <h5 class="card-title fs-4">Name: ${phone.phone_name}</h5>
               <p class="card-text fs-5">Brand: ${phone.brand}</p>
-              <a href="#main" onclick="phoneDetails('${phone.slug}')" class="btn btn-primary">Details</a>
+              <a href="#header" onclick="phoneDetails('${phone.slug}')" class="btn btn-primary">Details</a>
           </div>
       `;
       result.appendChild(div);
@@ -58,6 +55,7 @@ const displayResult = (data, searchText) => {
 };
 // about product
 const phoneDetails = async (id) => {
+  // API
   const url = `https://openapi.programming-hero.com/api/phone/${id}`;
   const res = await fetch(url);
   const json = await res.json();
