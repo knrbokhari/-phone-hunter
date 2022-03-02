@@ -53,14 +53,11 @@ const displayResult = (data, searchText) => {
   details.innerHTML = "";
   if (!isNaN(searchText)) {
     //   error messages
-    console.log("e1", data);
     error(searchText, result);
   } else if (data.length == 0) {
     //   error messages
     error(searchText, result);
-    console.log("e2", data);
   } else {
-    console.log("e3", data);
     data.slice(0, 20).map((phone) => {
       searchResult(phone, result);
       if (20 < data.length) {
@@ -89,12 +86,9 @@ const phoneDetails = async (id) => {
 };
 // display product details
 const displayDetails = (data) => {
-  //   console.log(data);
-  console.log(data);
   const details = document.getElementById("details");
   details.innerHTML = "";
   const div = document.createElement("div");
-  //   div.classList.add("row");
   div.classList.add("row", "align-items-center", "mb-4", "bg-light", "py-4");
   div.innerHTML = `
       <div class="col-md-4">
@@ -103,16 +97,8 @@ const displayDetails = (data) => {
       <div class=" col-md-8">
           <h5 class="card-title fs-4">Name: 
           ${data.name}</h5>
-          <p class="card-text fs-5 m-0">Brand: 
-          ${data.brand}.</p>
-          <p class="card-text fs-5 m-0">ChipSet: 
-          ${data.mainFeatures.chipSet}.</p>
-          <p class="card-text fs-5 m-0">Display: 
-          ${data.mainFeatures.displaySize}
           <p class="card-text fs-5 m-0">Release Date: 
           ${data.releaseDate ? data.releaseDate : "Release Date Not Found"}.</p>
-          <p class="card-text fs-5 m-0">Memory: 
-          ${data.mainFeatures.memory}.</p>
           <p class="card-text fs-5 m-0">Brand: 
           ${data.brand}.</p>
           <p class="card-text fs-5 m-0">ChipSet: 
@@ -125,10 +111,6 @@ const displayDetails = (data) => {
           ${data.mainFeatures.storage}.</p>
           <p class="card-text fs-5 m-0">Sensors: 
           ${data.mainFeatures.sensors.map((name) => " " + name)}.</p>
-          <p class="card-text fs-5 m-0">Storage: 
-          ${data.mainFeatures.storage}.</p>
-          <p class="card-text fs-5 m-0">Release Date: 
-          ${data.releaseDate}.</p>
           <p class="card-text fs-5 m-0">Other:</p>
           <p class="card-text m-0 ms-3" style="font-size: 15px">Bluetooth: 
           ${data.others?.Bluetooth ? data.others.Bluetooth : "Unspecified"}.</p>
