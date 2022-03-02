@@ -48,7 +48,6 @@ const displayResult = (data, searchText) => {
       result.appendChild(div);
     });
   }
-
   // spinner & Toggle
   spinner("none");
   ToggleDisplayResult("flex");
@@ -63,48 +62,59 @@ const phoneDetails = async (id) => {
 };
 // display product details
 const displayDetails = (data) => {
-  console.log(data);
+  //   details
   const details = document.getElementById("details");
   details.innerHTML = "";
+  // div
   const div = document.createElement("div");
   div.classList.add("row", "align-items-center", "mb-4", "bg-light", "py-4");
-  div.innerHTML = `
-    <div class="col-md-4">
-        <img src="${data.image}" class="mx-auto d-block w-75 mb-4 mb-md-0">
-    </div>
-    <div class="card-body col-md-8">
-        <h5 class="card-title fs-4">Name: ${data.name}</h5>
-        <p class="card-text fs-5 m-0">Release Date: ${
-          data.releaseDate ? data.releaseDate : "Release Date Not Found"
-        }.</p>
-        <p class="card-text fs-5 m-0">Brand: 
-        ${data.brand}.</p>
-        <p class="card-text fs-5 m-0">ChipSet: 
-        ${data.mainFeatures.chipSet}.</p>
-        <p class="card-text fs-5 m-0">Display: 
-        ${data.mainFeatures.displaySize}.</p>
-        <p class="card-text fs-5 m-0">Memory: 
-        ${data.mainFeatures.memory}.</p>
-        <p class="card-text fs-5 m-0">Storage: 
-        ${data.mainFeatures.storage}.</p>
-        <p class="card-text fs-5 m-0">Sensors: 
-        ${data.mainFeatures.sensors.map((name) => " " + name)}.</p>
+  // phoneImg
+  const phoneImg = document.createElement("div");
+  phoneImg.classList.add("col-md-4");
+  phoneImg.innerHTML = `
+          <img src="${data.image}" class="mx-auto d-block w-75 mb-4 mb-md-0">
+      `;
+  // phone Details
+  const phoneDetails = document.createElement("div");
+  phoneDetails.classList.add("col-md-8");
+  phoneDetails.innerHTML = `
+    <h5 class=" fs-4">Name: ${data.name}</h5>
+    <p class="fs-5 m-0">Release Date: 
+    ${data.releaseDate ? data.releaseDate : "Release Date Not Found"}.</p>
+    <p class="fs-5 m-0">Brand: 
+    ${data.brand}.</p>
+    <p class="fs-5 m-0">ChipSet: 
+    ${data.mainFeatures.chipSet}.</p>
+    <p class="fs-5 m-0">Display: 
+    ${data.mainFeatures.displaySize}.</p>
+    <p class="fs-5 m-0">Memory: 
+    ${data.mainFeatures.memory}.</p>
+    <p class="fs-5 m-0">Storage: 
+    ${data.mainFeatures.storage}.</p>
+    <p class="fs-5 m-0">Sensors: 
+    ${data.mainFeatures.sensors.map((name) => " " + name)}.</p>
+    `;
+  // other
+  const other = document.createElement("div");
+  if (data.others != undefined) {
+    other.innerHTML = `
         <p class="card-text fs-5 m-0">Other:</p>
-        <p class="card-text m-0 ms-3" style="font-size: 15px">Bluetooth: 
-        ${
-          data.others?.Bluetooth ? data.others.Bluetooth : "Date Not Update"
-        }.</p>
-        <p class="card-text m-0 ms-3" style="font-size: 15px">  GPS: 
-        ${data.others?.GPS ? data.others.GPS : "Date Not Update"}.</p>
-        <p class="card-text m-0 ms-3" style="font-size: 15px">  NFC: 
-        ${data.others?.NFC ? data.others.NFC : "Date Not Update"}.</p>
-        <p class="card-text m-0 ms-3" style="font-size: 15px">  Radio: 
-        ${data.others?.Radio ? data.others.Radio : "Date Not Update"}.</p>
-        <p class="card-text m-0 ms-3" style="font-size: 15px">  USB: 
-        ${data.others?.USB ? data.others.USB : "Date Not Update"}.</p>
-        <p class="card-text m-0 ms-3" style="font-size: 15px">  WLAN: 
-        ${data.others?.WLAN ? data.others.WLAN : "Date Not Update"}.</p>
-    </div>
-  `;
+        <p class="card-text m-0 ms-3" style="font-size: 15px">Bluetooth:
+        ${data.others.Bluetooth}.</p>
+        <p class="card-text m-0 ms-3" style="font-size: 15px">  GPS:
+        ${data.others.GPS}.</p>
+        <p class="card-text m-0 ms-3" style="font-size: 15px">  NFC:
+        ${data.others.NFC}.</p>
+        <p class="card-text m-0 ms-3" style="font-size: 15px">  Radio:
+        ${data.others.Radio}.</p>
+        <p class="card-text m-0 ms-3" style="font-size: 15px">  USB:
+        ${data.others.USB}.</p>
+        <p class="card-text m-0 ms-3" style="font-size: 15px">  WLAN:
+        ${data.others.WLAN}.</p>
+    `;
+  }
+  div.appendChild(phoneImg);
+  div.appendChild(phoneDetails);
+  phoneDetails.appendChild(other);
   details.appendChild(div);
 };
