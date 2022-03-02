@@ -14,6 +14,7 @@ const error = (searchText, result) => {
       <h2 class="text-center">${searchText} Not Found...</h2>
       `;
   result.appendChild(div);
+  seeMore.style.display = "none";
 };
 // search result
 const searchResult = (phone, result) => {
@@ -52,17 +53,21 @@ const displayResult = (data, searchText) => {
   details.innerHTML = "";
   if (!isNaN(searchText)) {
     //   error messages
+    console.log("e1", data);
     error(searchText, result);
-  } else if (data.length === 0) {
+  } else if (data.length == 0) {
     //   error messages
     error(searchText, result);
+    console.log("e2", data);
   } else {
+    console.log("e3", data);
     data.slice(0, 20).map((phone) => {
       searchResult(phone, result);
+      if (20 < data.length) {
+        seeMore.style.display = "block";
+      }
     });
-    if (20 < data.length) {
-      seeMore.style.display = "block";
-    }
+    // see More button
     seeMore.addEventListener("click", () => {
       data.slice(21).map((phone) => {
         searchResult(phone, result);
